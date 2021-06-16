@@ -1,0 +1,9 @@
+DJANGO_SETTINGS_MODULE=system.settings.development
+DJANGO_DEBUG=True
+DATABASE_HOST=postgresql-dev
+DATABASE_NAME=club
+DATABASE_USER=postgres
+DATABASE_PASSWORD=
+DATABASE_PORT=5432
+BROKER_URL=amqp://guest:guest@rabbitmq-dev:5672//
+REDIS_URI=redis://redis-dev:6379/0

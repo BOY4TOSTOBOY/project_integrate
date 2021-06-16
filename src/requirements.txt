@@ -1,0 +1,13 @@
+Django
+djangorestframework
+psycopg2-binary
+redis
+channels
+channels_redis
+celery
+uvicorn[standard]
+uvloop
+pydriller
+
+# Development and POC dependencies
+pygments
