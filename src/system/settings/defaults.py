@@ -35,7 +35,7 @@ USE_X_FORWARDED_PORT = True
 # Application definition
 
 CORE_APPS = [
-    # 'integrate.apps.IntegrateConfig'
+    #'integrate.applications.IntegrateConfig'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -97,9 +97,9 @@ ASGI_APPLICATION = 'system.asgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'NAME': 'integrate_db',
+        'USER': 'integrate',
+        'PASSWORD': 'integrate',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -155,7 +155,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = Path.joinpath(BASE_DIR, 'static')
+STATIC_ROOT = '/static'
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -164,7 +164,7 @@ STATICFILES_FINDERS = [
 ]
 
 STATICFILES_DIRS = [
-
+    BASE_DIR / "static",
 ]
 
 MEDIA_URL = '/media/'

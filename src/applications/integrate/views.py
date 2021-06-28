@@ -1,5 +1,4 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.shortcuts import render
 from .models import UrlRepository, Commit, ModifiedFile
 from pydriller import Repository
 
@@ -57,11 +56,11 @@ def index(request):
                 # total number of deleted rows
                 current_file_stats_delete_lines = ModifiedFile(file_stats_delete_lines=m.deleted_lines)
                 current_file_stats_delete_lines.save()
-    return HttpResponse("/")
+    return render(request, 'integrate/index.html')
 
 
 def results(request):
     current_url = UrlRepository.objects.all()
     commit_information = Commit.objects.all()
     file_information = ModifiedFile.objects.all()
-    return render(request, {current_url}, {commit_information}, {file_information})
+    return render(request, 'integrate/results.html')

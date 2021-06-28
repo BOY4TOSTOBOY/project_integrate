@@ -1,0 +1,30 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'integrate/css/integrate.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+</head>
+<body>
+    <aside>
+        <img src="{% static 'integrate/img/Boy_M_shape.svg' %}" alt="Лого">
+            <span class="logo">Integrate</span>
+        <h3>Меню</h3>
+        <ul>
+            <a href="{% url 'integrate:portal' %}"><li><i class="fas fa-home"></i> Портал</li></a>
+            <a href="{% url 'integrate:results' %}"><li><i class="far fa-list-alt"></i> Результаты</li></a>
+            <a href=""><li><i class="fas fa-file-signature"></i> Обратная связь</li></a>
+        </ul>
+    </aside>
+    <integrate>
+        {% block content %}
+        {% endblock %}
+    </integrate>
+</body>
+</html>
