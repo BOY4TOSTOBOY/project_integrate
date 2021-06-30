@@ -5,8 +5,7 @@ class UrlRepository(models.Model):
     # full path to the repository
     url_text = models.CharField('URL адрес репозитория', max_length=255,
                                 help_text='Введите url адрес репозитория, к примеру: '
-                                          'https://github.com/BOY4TOSTOBOY/OprosnikDjango',
-                                blank=False)
+                                          'https://github.com/BOY4TOSTOBOY/OprosnikDjango',)
 
     def __str__(self):
         return self.url_text

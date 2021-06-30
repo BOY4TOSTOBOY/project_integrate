@@ -6,8 +6,10 @@
     <div class="features">
         <h1>Введите URL адрес:</h1>
         <form method="post">
-            
+            {% csrf_token %}
+            {{ form.url_text }}<br>
+            <span>{{ error }}</span>
+            <button class="btn btn-success" type="submit">Получить данные</button>
         </form>
-        <button class="btn btn-warning">Получить данные</button>
     </div>
 {% endblock %}
