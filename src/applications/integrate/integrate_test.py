@@ -1,5 +1,5 @@
 from pydriller import Repository
-
+a = []
 url_text = 'https://github.com/BOY4TOSTOBOY/OprosnikDjango'
 for commit in Repository(url_text).traverse_commits():
     commit_url = url_text + '/commit/' + commit.hash

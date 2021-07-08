@@ -13,13 +13,11 @@
 </head>
 <body>
     <aside>
-        <img src="{% static 'integrate/img/Boy_M_shape.svg' %}" alt="Лого">
-            <span class="logo">Integrate</span>
-        <h3>Меню</h3>
+        <span class="logo">Integrate</span>
         <ul>
-            <a href="{% url 'integrate:portal' %}"><li><i class="fas fa-home"></i> Портал</li></a>
-            <a href="{% url 'integrate:results' %}"><li><i class="far fa-list-alt"></i> Результаты</li></a>
-            <a href=""><li><i class="fas fa-file-signature"></i> Обратная связь</li></a>
+            <a href="{% url 'integrate:portal' %}"><li><i class="fas fa-home"></i> Home</li></a>
+            <a href="{% url 'integrate:results' %}"><li><i class="far fa-list-alt"></i> Results</li></a>
+            <a href=""><li><i class="fas fa-file-signature"></i> Feedback</li></a>
         </ul>
     </aside>
     <integrate>

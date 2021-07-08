@@ -10,7 +10,7 @@ class UrlRepositoryForm(ModelForm):
         widgets = {
             "url_text": TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Введите URL адрес репозитория'
+                'placeholder': 'Enter the repository URL'
             })
         }
 

@@ -3,5 +3,156 @@
 {% block title %}Results{% endblock %}
 
 {% block content %}
-    <h1>Результаты:</h1>
+    <div class="features">
+        <h1>Results:</h1>
+        {% if data_url_repo %}
+            {% for el0 in data_url_repo %}
+                <div class="alert alert-warning">
+                    <h3>{{ el0.url_text }}</h3>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h4>There are no URL entries</h4>
+        {% endif %}
+
+        {% if data_com_urls %}
+            {% for el4 in data_com_urls %}
+                <div class="alert alert-warning">
+                    <h5>{{ el4.commit_url }}</h5>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h4>There are no paths to commits</h4>
+        {% endif %}
+
+        {% if data_com_hash %}
+            {% for el1 in data_com_hash %}
+                <div class="alert alert-warning">
+                    <h5>{{ el1.commit_hash }}</h5>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h4>There are no commit hash records</h4>
+        {% endif %}
+
+        {% if data_com_branches_names %}
+            {% for el2 in data_com_branches_names %}
+                <div class="alert alert-warning">
+                    <h5>{{ el2.commit_branches_name }}</h5>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h4>Branch names are missing</h4>
+        {% endif %}
+
+        {% if data_com_authors %}
+            {% for el3 in data_com_authors %}
+                <div class="alert alert-warning">
+                    <h5>{{ el3.commit_author }}</h5>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h4>The authors of the commits are absent</h4>
+        {% endif %}
+
+        {% if data_f_name %}
+            {% for f1 in data_f_name %}
+                <div class="alert alert-secondary">
+                    <h6>{{ f1.file_name }}</h6>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h4>There are no paths to commits</h4>
+        {% endif %}
+
+        {% if data_f_path %}
+            {% for f2 in data_f_path %}
+                <div class="alert alert-secondary">
+                    <h6>{{ f2.file_full_path }}</h6>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h4>There are no paths to commits</h4>
+        {% endif %}
+
+        {% if data_f_status %}
+            {% for f3 in data_f_status %}
+                <div class="alert alert-secondary">
+                    <h6>{{ f3.file_status }}</h6>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h4>There are no paths to commits</h4>
+        {% endif %}
+
+        {% if data_f_sal %}
+            {% for f4 in data_f_sal %}
+                <div class="alert alert-secondary">
+                    <h6>{{ f4.file_stats_add_lines }}</h6>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h4>There are no paths to commits</h4>
+        {% endif %}
+
+        {% if data_f_sdl %}
+            {% for f5 in data_f_sdl %}
+                <div class="alert alert-secondary">
+                    <h6>{{ f5.file_stats_delete_lines }}</h6>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h4>There are no paths to commits</h4>
+        {% endif %}
+
+        {% if data_com_msgs %}
+            {% for el5 in data_com_msgs %}
+                <div class="alert alert-warning">
+                    <h5>{{ el5.commit_message }}</h5>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h4>There are no commit messages</h4>
+        {% endif %}
+
+        {% if data_com_sal %}
+            {% for el6 in data_com_sal %}
+                <div class="alert alert-warning">
+                    <h5>{{ el6.commit_stats_add_lines }}</h5>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h4>The number of added rows is missing</h4>
+        {% endif %}
+
+        {% if data_com_sdl %}
+            {% for el7 in data_com_sdl %}
+                <div class="alert alert-warning">
+                    <h5>{{ el7.commit_stats_delete_lines }}</h5>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h4>The number of deleted rows is missing</h4>
+        {% endif %}
+
+        {% if data_com_sccl %}
+            {% for el8 in data_com_sccl %}
+                <div class="alert alert-warning">
+                    <h5>{{ el8.commit_stats_count_change_lines }}</h5>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h4>The total number of changes with rows is missing</h4>
+        {% endif %}
+
+        {% if data_com_sccf %}
+            {% for el9 in data_com_sccf %}
+                <div class="alert alert-warning">
+                    <h5>{{ el9.commit_stats_count_change_files }}</h5>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h4>The total number of modified files is missing</h4>
+        {% endif %}
+    </div>
 {% endblock %}

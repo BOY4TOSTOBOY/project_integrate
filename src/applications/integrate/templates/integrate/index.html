@@ -4,12 +4,12 @@
 
 {% block content %}
     <div class="features">
-        <h1>Введите URL адрес:</h1>
+        <h1>Input Url:</h1>
         <form method="post">
             {% csrf_token %}
             {{ form.url_text }}<br>
-            <span>{{ error }}</span>
-            <button class="btn btn-success" type="submit">Получить данные</button>
+            <span>{{ error }}</span><br><br>
+            <button class="btn btn-success" type="submit">Get data</button>
         </form>
     </div>
 {% endblock %}
