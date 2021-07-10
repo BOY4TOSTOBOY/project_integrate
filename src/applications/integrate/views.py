@@ -12,6 +12,10 @@ def index(request):
             form.save()
             count_commits = 0
             count_files = 0
+            Commit.objects.all().delete()
+            ModifiedFile.objects.all().delete()
+            NumberOfCommits.objects.all().delete()
+            NumberOfFiles.objects.all().delete()
             # reading the link to the repository from the database
             url_text = str(UrlRepository.objects.last())
             for commit in Repository(url_text).traverse_commits():
@@ -28,7 +32,7 @@ def index(request):
                 count_commits += 1
                 for mod in commit.modified_files:
                     data_file_name = mod.filename
-                    data_file_full_path = url_text + '/' + mod.new_path
+                    data_file_full_path = mod.new_path
                     data_file_status = mod.change_type
                     data_file_stats_add_lines = mod.added_lines
                     data_file_stats_delete_lines = mod.deleted_lines
@@ -39,8 +43,6 @@ def index(request):
                                                 file_stats_add_lines=data_file_stats_add_lines,
                                                 file_stats_delete_lines=data_file_stats_delete_lines)
                     file_changes.save()
-                total_files = NumberOfFiles(count_iteration=count_files)
-                total_files.save()
                 commit_information = Commit(commit_hash=data_commit_hash,
                                             commit_branches_name=data_commit_branches_name,
                                             commit_author=data_commit_author, commit_url=data_commit_url,
@@ -52,6 +54,8 @@ def index(request):
                 commit_information.save()
             total_commits = NumberOfCommits(count_iteration=count_commits)
             total_commits.save()
+            total_files = NumberOfFiles(count_iteration=count_files)
+            total_files.save()
             return redirect('results/')
         else:
             error = 'Данные не введены'

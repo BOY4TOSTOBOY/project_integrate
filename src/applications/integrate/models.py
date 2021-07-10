@@ -15,7 +15,7 @@ class UrlRepository(models.Model):
 
 class Commit(models.Model):
     url_txt = models.ForeignKey(UrlRepository, verbose_name='Принадлежит репозиторию', on_delete=models.CASCADE,
-                                blank=True)
+                                blank=True, null=True)
     # hash
     commit_hash = models.TextField('Hash', blank=True, null=True)
     # branches that contain the commit
@@ -47,7 +47,8 @@ class Commit(models.Model):
 
 
 class ModifiedFile(models.Model):
-    commit_hash = models.ForeignKey(Commit, verbose_name='Принадлежат коммиту', on_delete=models.CASCADE, blank=True)
+    commit_hash = models.ForeignKey(Commit, verbose_name='Принадлежат коммиту', on_delete=models.CASCADE, blank=True,
+                                    null=True)
     # name of the modified file
     file_name = models.TextField('Имя файла', blank=True, null=True)
     # full path to the file
@@ -77,7 +78,7 @@ class NumberOfCommits(models.Model):
         return str(self.count_iteration)
 
     class Meta:
-        verbose_name = 'Количество записей в бд'
+        verbose_name = 'Количество коммитов в бд'
         verbose_name_plural = 'Number Commits'
 
 
@@ -88,5 +89,5 @@ class NumberOfFiles(models.Model):
         return str(self.count_iteration)
 
     class Meta:
-        verbose_name = 'Количество записей в бд'
+        verbose_name = 'Количество файлов в бд'
         verbose_name_plural = 'Number Files'
