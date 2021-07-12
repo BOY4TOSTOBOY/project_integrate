@@ -1,3 +1,7 @@
+import json
+from django.http import HttpResponse
+from django.views.generic import View
+from braces.views import CsrfExemptMixin
 from django.shortcuts import render, redirect
 from .models import UrlRepository, Commit, ModifiedFile, NumberOfCommits, NumberOfFiles
 from pydriller import Repository
@@ -102,3 +106,9 @@ def results(request):
         'data_f_sdl': data_f_sdl
     }
     return render(request, 'integrate/results.html', data)
+
+
+class ProcessHookView(CsrfExemptMixin, View):
+    def post(self, request, *args, **kwargs):
+        print(json.loads(request.body))
+        return HttpResponse()
