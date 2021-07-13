@@ -13,6 +13,17 @@ class UrlRepository(models.Model):
         verbose_name_plural = 'Список URL адресов'
 
 
+class WebHook(models.Model):
+    information = models.TextField('Данные вебхука', blank=True, null=True)
+
+    def __str__(self):
+        return self.information
+
+    class Meta:
+        verbose_name = 'Данные'
+        verbose_name_plural = 'WebHooks Information'
+
+
 class Commit(models.Model):
     url_txt = models.ForeignKey(UrlRepository, verbose_name='Принадлежит репозиторию', on_delete=models.CASCADE,
                                 blank=True, null=True)
@@ -91,14 +102,3 @@ class NumberOfFiles(models.Model):
     class Meta:
         verbose_name = 'Количество файлов в бд'
         verbose_name_plural = 'Number Files'
-
-
-class WebHook(models.Model):
-    information = models.TextField('Данные вебхука', blank=True, null=True)
-
-    def __str__(self):
-        return str(self.information)
-
-    class Meta:
-        verbose_name = 'Данные'
-        verbose_name_plural = 'WebHooks Information'

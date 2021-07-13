@@ -116,7 +116,7 @@ class ProcessHookView(CsrfExemptMixin, View):
         return HttpResponse("321")
 
     def get(self, request, *args, **kwargs):
-        info = WebHook.objects.order_by('-information')[:1]
+        info = WebHook.objects.last()
         data = {
             'info': info
         }
