@@ -91,3 +91,14 @@ class NumberOfFiles(models.Model):
     class Meta:
         verbose_name = 'Количество файлов в бд'
         verbose_name_plural = 'Number Files'
+
+
+class WebHook(models.Model):
+    information = models.TextField('Данные вебхука', blank=True, null=True)
+
+    def __str__(self):
+        return str(self.information)
+
+    class Meta:
+        verbose_name = 'Данные'
+        verbose_name_plural = 'WebHooks Information'

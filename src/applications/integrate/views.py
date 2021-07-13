@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.views.generic import View
 from braces.views import CsrfExemptMixin
 from django.shortcuts import render, redirect
-from .models import UrlRepository, Commit, ModifiedFile, NumberOfCommits, NumberOfFiles
+from .models import UrlRepository, Commit, ModifiedFile, NumberOfCommits, NumberOfFiles, WebHook
 from pydriller import Repository
 from .forms import UrlRepositoryForm
 
@@ -110,5 +110,14 @@ def results(request):
 
 class ProcessHookView(CsrfExemptMixin, View):
     def post(self, request, *args, **kwargs):
-        print(json.loads(request.body))
-        return HttpResponse()
+        # a = json.loads(request.body)
+        results_webhook = WebHook(information=json.loads(request.body))
+        results_webhook.save()
+        return HttpResponse("321")
+
+    def get(self, request, *args, **kwargs):
+        info = WebHook.objects.order_by('-information')[:1]
+        data = {
+            'info': info
+        }
+        return render(request, 'integrate/hook.html', data)
