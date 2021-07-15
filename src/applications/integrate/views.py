@@ -4,8 +4,8 @@ from django.views.generic import View
 from braces.views import CsrfExemptMixin
 from django.shortcuts import render, redirect
 from .models import UrlRepository, Commit, ModifiedFile, NumberOfCommits, NumberOfFiles, WebHook
-from pydriller import Repository
 from .forms import UrlRepositoryForm
+from pydriller import Repository
 
 
 def index(request):
@@ -20,7 +20,6 @@ def index(request):
             ModifiedFile.objects.all().delete()
             NumberOfCommits.objects.all().delete()
             NumberOfFiles.objects.all().delete()
-            # reading the link to the repository from the database
             url_text = str(UrlRepository.objects.last())
             for commit in Repository(url_text).traverse_commits():
                 commit_url = url_text + '/commit/' + commit.hash
@@ -108,9 +107,9 @@ def results(request):
     return render(request, 'integrate/results.html', data)
 
 
-class ProcessHookView(CsrfExemptMixin, View):
+class HookView(CsrfExemptMixin, View):
     def post(self, request, *args, **kwargs):
-        # a = json.loads(request.body)
+        # a = json.dumps(request.json)
         results_webhook = WebHook(information=json.loads(request.body))
         results_webhook.save()
         return HttpResponse("321")
