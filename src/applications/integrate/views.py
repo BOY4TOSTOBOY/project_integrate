@@ -1,11 +1,20 @@
 import json
-from django.http import HttpResponse
-from django.views.generic import View
-from braces.views import CsrfExemptMixin
+import requests
+import hmac
+
+from django.conf import settings
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseServerError
 from django.shortcuts import render, redirect
+from django.utils.encoding import force_bytes
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+
 from .models import UrlRepository, Commit, ModifiedFile, NumberOfCommits, NumberOfFiles, WebHook
 from .forms import UrlRepositoryForm
+
 from pydriller import Repository
+from ipaddress import ip_address, ip_network
+from hashlib import sha1
 
 
 def index(request):
@@ -107,16 +116,40 @@ def results(request):
     return render(request, 'integrate/results.html', data)
 
 
-class HookView(CsrfExemptMixin, View):
-    def post(self, request, *args, **kwargs):
-        # a = json.dumps(request.json)
-        results_webhook = WebHook(information=json.loads(request.body))
-        results_webhook.save()
-        return HttpResponse("321")
+@require_POST  # only post requests
+@csrf_exempt
+def hook(request):
+    # Verify if request came from GitHub
+    forwarded_for = u'{}'.format(request.META.get('HTTP_X_FORWARDED_FOR'))
+    client_ip_address = ip_address(forwarded_for)
+    whitelist = requests.get('https://api.github.com/meta').json()['hooks']
 
-    def get(self, request, *args, **kwargs):
-        info = WebHook.objects.order_by('-information')
-        data = {
-            'info': info
-        }
-        return render(request, 'integrate/hook.html', data)
+    for valid_ip in whitelist:
+        if client_ip_address in ip_network(valid_ip):
+            break
+    else:
+        return HttpResponseForbidden('Permission denied.')
+    # Verify the request signature
+    header_signature = request.META.get('HTTP_X_HUB_SIGNATURE')
+    if header_signature is None:
+        return HttpResponseForbidden('Permission denied.')
+
+    sha_name, signature = header_signature.split('=')
+    if sha_name != 'sha1':
+        return HttpResponseServerError('Operation not supported.', status=501)
+
+    mac = hmac.new(force_bytes(settings.GITHUB_WEBHOOK_KEY), msg=force_bytes(request.body), digestmod=sha1)
+    if not hmac.compare_digest(force_bytes(mac.hexdigest()), force_bytes(signature)):
+        return HttpResponseForbidden('Permission denied.')
+
+    results_webhook = WebHook(information=json.loads(request.body))
+    results_webhook.save()
+    return HttpResponse(status=204)
+
+
+def webhook_last(request):
+    info = WebHook.objects.all().last()
+    data = {
+        'info': info
+    }
+    return render(request, 'integrate/webhook.html', data)

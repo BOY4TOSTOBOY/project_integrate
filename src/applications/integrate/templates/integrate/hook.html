@@ -1,18 +1,10 @@
 {% extends 'integrate/template.html'%}
 
-{% block title %}Hook{% endblock %}
+{% block title %}Get Hook{% endblock %}
 
 {% block content %}
     <div class="features">
-        <h1>WebHook Results:</h1>
-        {% if info %}
-            {% for el10 in info %}
-                <div class="alert alert-warning">
-                    <h5>{{ el10.information }}</h5>
-                </div>
-            {% endfor %}
-        {% else %}
-            <h4>There are no information from webhooks</h4>
-        {% endif %}
+        <h1>WebHook Get</h1>
+
     </div>
 {% endblock %}

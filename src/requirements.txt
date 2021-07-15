@@ -8,6 +8,8 @@ celery
 uvicorn[standard]
 uvloop
 pydriller
+requests
+ipaddress
 
 # Development and POC dependencies
 pygments

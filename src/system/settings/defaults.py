@@ -174,3 +174,5 @@ MEDIA_ROOT = Path.joinpath(BASE_DIR, 'media')
 FIXTURE_DIRS = []
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+GITHUB_WEBHOOK_KEY = 'veravuspeh'
